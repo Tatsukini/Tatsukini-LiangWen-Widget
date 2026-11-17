@@ -35,9 +35,13 @@
 
         <!-- 1. countdown -->
         <Border x:Name="M1" Grid.Row="0" BorderThickness="2" Background="#00000000" Padding="8" Margin="0,0,0,8">
-            <TextBlock FontSize="18" HorizontalAlignment="Center">
-                <Run Text="峰" Foreground="#F48FB1"/><Run Text="/" Foreground="White"/><Run Text="谷" Foreground="#81D4FA"/><Run Text=" 倒计时 " Foreground="White"/><Run x:Name="CountdownValue" Text="--:--" Foreground="White"/>
-            </TextBlock>
+            <StackPanel>
+                <TextBlock FontSize="18" HorizontalAlignment="Center">
+                    <Run Text="峰" Foreground="#F48FB1"/><Run Text="/" Foreground="White"/><Run Text="谷" Foreground="#81D4FA"/><Run Text=" 倒计时 " Foreground="White"/><Run x:Name="CountdownValue" Text="--:--" Foreground="White"/>
+                </TextBlock>
+                <TextBlock x:Name="QoderPromoText" Text="QoderCN低峰折扣" FontSize="14" Margin="0,4,0,0"
+                           Foreground="#AECBAA" HorizontalAlignment="Center"/>
+            </StackPanel>
         </Border>
 
         <!-- 2. avatar + status chars -->

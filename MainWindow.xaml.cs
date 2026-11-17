@@ -25,6 +25,9 @@ public partial class MainWindow : Window
     private static readonly Brush GrayD  = Frozen(Color.FromRgb(0x61,0x61,0x61)); // 崩
     private static readonly Brush Green  = Frozen(Color.FromRgb(0xA5,0xD6,0xA7)); // 活
     private static readonly Brush White  = Frozen(Color.FromRgb(0xFF,0xFF,0xFF));
+    // QoderCN 错峰折扣提示色：折扣时段淡灰绿，常规时段淡红
+    private static readonly Brush QoderOff = Frozen(Color.FromRgb(0xAE,0xCB,0xAA));
+    private static readonly Brush QoderPeak = Frozen(Color.FromRgb(0xEF,0x9A,0x9A));
 
     private static readonly TimeZoneInfo Tz =
         TimeZoneInfo.FindSystemTimeZoneById("China Standard Time");
@@ -222,6 +225,23 @@ public partial class MainWindow : Window
 
         DescriptionText.Text = BuildDescription(info.IsPeak);
         UpdateBalanceDisplay();
+        UpdateQoderPromo(now);
+    }
+
+    // QoderCN 错峰折扣：每日 22:00–次日 08:00（北京时间）享折扣，其余为常规高峰原价
+    private void UpdateQoderPromo(DateTime beijingNow)
+    {
+        bool offPeak = beijingNow.Hour >= 22 || beijingNow.Hour < 8;
+        if (offPeak)
+        {
+            QoderPromoText.Text = "QoderCN低峰折扣";
+            QoderPromoText.Foreground = QoderOff;
+        }
+        else
+        {
+            QoderPromoText.Text = "QoderCN 高峰";
+            QoderPromoText.Foreground = QoderPeak;
+        }
     }
 
     private string BuildDescription(bool isPeak)
